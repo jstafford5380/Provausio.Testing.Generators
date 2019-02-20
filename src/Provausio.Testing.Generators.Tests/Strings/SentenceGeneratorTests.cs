@@ -5,13 +5,13 @@ using Xunit;
 
 namespace Provausio.Testing.Generators.Tests.Strings
 {
-    public class ParagraphTests
+    public class SentenceGeneratorTests
     {
         [Fact]
         public void GenerateParagraph_GeneratesUniqueParagraph()
         {
             // arrange
-            var paraGen = new ParagraphGenerator();
+            var paraGen = new SentenceGenerator();
 
             // act
             var paragraph1 = paraGen.GenerateParagraph(5, 10);
@@ -27,7 +27,7 @@ namespace Provausio.Testing.Generators.Tests.Strings
         public void GenerateParagraphs_ContinuesToGenerate_UniqueParagraphs()
         {
             // arrange
-            var generator = new ParagraphGenerator();
+            var generator = new SentenceGenerator();
 
             // act
             var paragraphs = generator.GenerateParagraphs(5, 10).Take(5);

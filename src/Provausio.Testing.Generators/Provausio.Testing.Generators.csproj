@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Generators\Names\" />
     <Folder Include="Generators\Dates\" />
     <Folder Include="Generators\Objects\" />
   </ItemGroup>
