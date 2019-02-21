@@ -1,9 +1,9 @@
-﻿using Provausio.Testing.Generators.Generators.Names;
-using System;
+﻿using System;
 using System.Linq;
+using Provausio.Testing.Generators.Generators.Names;
 using Xunit;
 
-namespace Provausio.Testing.Generators.Tests.Names
+namespace Provausio.Testing.Generators.Tests.UnitTests.Names
 {
     public class NameGeneratorTests
     {

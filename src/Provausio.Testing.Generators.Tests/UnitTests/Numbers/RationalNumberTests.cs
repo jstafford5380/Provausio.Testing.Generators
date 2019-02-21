@@ -1,10 +1,7 @@
 ﻿using Provausio.Testing.Generators.Generators.Numbers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
-namespace Provausio.Testing.Generators.Tests.Numbers
+namespace Provausio.Testing.Generators.Tests.UnitTests.Numbers
 {
     public class RationalNumberTests
     {

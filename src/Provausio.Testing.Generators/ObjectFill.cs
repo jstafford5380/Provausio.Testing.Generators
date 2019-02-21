@@ -12,6 +12,12 @@ namespace Provausio.Testing.Generators
     {
         private Dictionary<Expression<Func<T, object>>, IGenerateData> _selectors = new Dictionary<Expression<Func<T, object>>, IGenerateData>();
 
+        /// <summary>
+        /// Configure a property to be generated.
+        /// </summary>
+        /// <param name="propertySelector">Selects the property against which the generator will be used.</param>
+        /// <param name="provider">The instance of the generator to be used on the selected property.</param>
+        /// <returns></returns>
         public ObjectFill<T> For(Expression<Func<T, object>> propertySelector, IGenerateData provider)
         {
             if(ContainsSelector(propertySelector.ToString()))
@@ -22,12 +28,11 @@ namespace Provausio.Testing.Generators
             return this;
         }
 
-        private bool ContainsSelector(string selector)
-        {
-            var selectors = _selectors.Keys.Select(k => k.ToString());
-            return selectors.Contains(selector, StringComparer.OrdinalIgnoreCase);
-        }
-
+        /// <summary>
+        /// Generates the objects using the current configuration.
+        /// </summary>
+        /// <param name="count">The number of objects to generate.</param>
+        /// <returns></returns>
         public IEnumerable<T> Generate(int count)
         {
             for (var i = 0; i < count; i++)
@@ -36,6 +41,12 @@ namespace Provausio.Testing.Generators
                 FillProperties(instance);
                 yield return instance;
             }
+        }
+
+        private bool ContainsSelector(string selector)
+        {
+            var selectors = _selectors.Keys.Select(k => k.ToString());
+            return selectors.Contains(selector, StringComparer.OrdinalIgnoreCase);
         }
 
         private void FillProperties(T instance)
