@@ -49,7 +49,7 @@ namespace Provausio.Testing.Generators.Tests.Numbers
             var d = _gen.Generate<decimal>(1, 1000, RationalType.Money);
 
             // assert
-            var split = d.ToString().Split(",");
+            var split = d.ToString().Split(".");
             Assert.True(split[1].Length < 3);
         }
     }

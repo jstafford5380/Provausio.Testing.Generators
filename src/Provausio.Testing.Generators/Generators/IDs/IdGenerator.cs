@@ -6,21 +6,21 @@ namespace Provausio.Testing.Generators.Generators.IDs
 {
     internal class IdGenerator
     {
-        public string Generate(IdFormat format = IdFormat.Xid)
+        public string Generate(IdType type = IdType.Xid)
         {
             var id = string.Empty;
-            switch (format)
+            switch (type)
             {
-                case IdFormat.Integer:
+                case IdType.Integer:
                     id = GenerateInteger;
                     break;
-                case IdFormat.Guid:
+                case IdType.Guid:
                     id = GenerateGuid;
                     break;
-                case IdFormat.Xid:
+                case IdType.Xid:
                     id = GenerateXid;
                     break;
-                case IdFormat.Base58:
+                case IdType.Base58:
                     id = GenerateBase58;
                     break;
             }
@@ -37,7 +37,7 @@ namespace Provausio.Testing.Generators.Generators.IDs
         private string GenerateInteger => Math.Abs(Xid.NewXid().GetHashCode() % 0xF4240).ToString();
     }
 
-    public enum IdFormat
+    public enum IdType
     {
         Integer,
         Guid,

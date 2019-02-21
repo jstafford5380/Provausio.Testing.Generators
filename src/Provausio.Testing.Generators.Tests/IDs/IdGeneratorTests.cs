@@ -12,7 +12,7 @@ namespace Provausio.Testing.Generators.Tests.IDs
             var gen = new IdGenerator();
 
             // act
-            var guidId = gen.Generate(IdFormat.Guid);
+            var guidId = gen.Generate(IdType.Guid);
 
             // assert
             Assert.Equal(36, guidId.Length);
@@ -25,7 +25,7 @@ namespace Provausio.Testing.Generators.Tests.IDs
             var gen = new IdGenerator();
 
             // act
-            var xid = gen.Generate(IdFormat.Xid);
+            var xid = gen.Generate(IdType.Xid);
 
             // assert
             Assert.Equal(20, xid.Length);
@@ -38,7 +38,7 @@ namespace Provausio.Testing.Generators.Tests.IDs
             var gen = new IdGenerator();
 
             // act
-            var guidId = gen.Generate(IdFormat.Base58);
+            var guidId = gen.Generate(IdType.Base58);
 
             // assert
             Assert.Equal(22, guidId.Length);
@@ -51,7 +51,7 @@ namespace Provausio.Testing.Generators.Tests.IDs
             var gen = new IdGenerator();
 
             // act
-            var intId = gen.Generate(IdFormat.Integer);
+            var intId = gen.Generate(IdType.Integer);
             
             // assert
             Assert.True(int.TryParse(intId, out var i));
