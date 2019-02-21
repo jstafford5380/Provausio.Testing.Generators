@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
+using Provausio.Testing.Generators.Shared;
 
 namespace Provausio.Testing.Generators.Generators.Numbers
 {
     public class IncrementedIntegerProvider : IGenerateData
     {
-        private readonly IEnumerator<int> _generator;
+        private readonly IteratorStepper<int> _generator;
 
         public Type Type => typeof(int);
 
         public IncrementedIntegerProvider(int startAt = 0, int max = GeneratorLimit.Default)
         {
             var gen = new IntegerGenerator();
-            _generator = gen
-                .GenerateIncremented(startAt, max)
-                .GetEnumerator();
+            _generator = new IteratorStepper<int>(gen
+                .GenerateIncremented(startAt, max));
         }
 
         public object Generate()
         {
-            _generator.MoveNext();
-            return _generator.Current;
+            return _generator.GetNext();
         }
     }
 }
