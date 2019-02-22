@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Newtonsoft.Json;
 using Provausio.Testing.Generators.Generators;
 using Provausio.Testing.Generators.Generators.IDs;
 using Provausio.Testing.Generators.Generators.Names;
@@ -9,6 +11,16 @@ namespace Provausio.Testing.Generators.Tests.AcceptanceTests
 {
     public class Usage
     {
+        //[Fact]
+        public void AsJson()
+        {
+            var filler = new ObjectFill<Employee>()
+                .For(p => p.FirstName, new StaticNameProvider("Peter"));
+
+            var objects = filler.Generate(5).ToList();
+            var json = JsonConvert.SerializeObject(objects);
+        }
+
         [Fact]
         public void Using_a_specific_provider()
         {
@@ -82,5 +94,30 @@ namespace Provausio.Testing.Generators.Tests.AcceptanceTests
         public string LastName { get; set; }
 
         public decimal HourlyRate { get; set; }
+    }
+
+    public class Employee
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public decimal Rate { get; set; }
+    }
+
+    public class StaticNameProvider : IGenerateData
+    {
+        private string _name;
+
+        public Type Type => typeof(string);
+
+        public StaticNameProvider(string name)
+        {
+            _name = name;
+        }
+
+        public object Generate()
+        {
+            return _name;
+        }
     }
 }

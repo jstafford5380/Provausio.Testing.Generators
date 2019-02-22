@@ -10,7 +10,7 @@ namespace Provausio.Testing.Generators.Generators.Names
 
         public Type Type => typeof(string);
         
-        public NameProvider(NameType type = NameType.Both, Gender gender = Gender.Both)
+        public NameProvider(NameType type = NameType.Both, Gender gender = Gender.NotApplicable)
         {
             _generator = new NameGenerator();
             _nameType = type;
