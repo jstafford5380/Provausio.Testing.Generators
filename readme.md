@@ -204,3 +204,23 @@ IEnumerable<Employee> objects = filler.Generate(5);
 ]
 
 ```
+
+## Overriding the fill action
+There may be cases where you want to do some extra work after the generator runs. For example, maybe you want to generate a decimal but you want to fill a string, allowing you to apply some formatting. There is an available overload that will allow you specify an action to perform against the instance and it will also give you access to the generator.
+
+The generator returns `object` so you'll have to cast. If you need to know what type it is, it is available on the generator at `IGenerateData.Type`. Generally speaking, you should already know what that type is during setup, so it shoulding be an issue.
+
+``` csharp
+var configuration = new ObjectFill<SomeObject>()
+    .For(p => p.Age, 
+            new MoneyProvider(15, 65), 
+            (target, generator) => // target is the instance, generator is the generator you specified.
+            {
+                var wage = (decimal) generator.Generate();
+                target.Wage = wage.ToString("c");
+            });
+```
+
+This is also usefull if the only way you can set a property is through a method. Just do a similar override and call the method on the target.
+
+I condidered writing it in a way that would provide the generated value instead of the generator itself, but besides you losing access to `IGenerateData.Type`, it also convoluted the implementation so I decided against it. This should give you a bit more flexibility.
