@@ -1,4 +1,6 @@
-﻿# Getting started
+﻿[![CircleCI](https://circleci.com/gh/jstafford5380/Provausio.Testing.Generators.svg?style=svg)](https://circleci.com/gh/jstafford5380/Provausio.Testing.Generators) [![NuGet](https://img.shields.io/badge/NuGet-Provausio.Practices-green.svg)](https://www.nuget.org/packages/Provausio.Testing.Generators/)
+ 
+ # Getting started
 
 #### Have a serializable DTO
 Currently, this only supports objects with a default constructor and will only fill public properties that have a setter.
