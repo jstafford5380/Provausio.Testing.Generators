@@ -1,7 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeSymbols>true</IncludeSymbols>
+    <Configurations>Debug;Release</Configurations>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0</Version>
+    <Authors>Jeremy Stafford</Authors>
+    <Company>Provausio</Company>
+    <Copyright>2019 Provausio</Copyright>
+    <Product>Test data generator</Product>
+    <Description>Generates fake data and fills your objects with them.</Description>
+    <BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
+    <VersionSuffix Condition="'$(BuildNumber)' == '0'">-pre</VersionSuffix>
+    <VersionSuffix Condition="'$(VersionSuffix)' == ''"></VersionSuffix>
+    <PackageVersion>$(Version).$(BuildNumber)$(VersionSuffix)</PackageVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageProjectUrl>https://github.com/jstafford5380/provausio.testing.generators</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jstafford5380/provausio.testing.generators</RepositoryUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>testing mock data generators</PackageTags>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
