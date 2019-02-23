@@ -97,7 +97,8 @@ All generators in this package are suffixed with "Provider" so you can search fo
 |**MoneyProvider**             | Generates decimals constrained to 2 decimal places.               |
 |**WordProvider**              | Generates a single word.                                          |
 |**SentenceProvider**          | Generates random sentences using lorem ipsum.                     |
-|**ParagraphProvider**         | Gerneates random paragraphs using lorem ipsum.                    |
+|**ParagraphProvider**         | Generates random paragraphs using lorem ipsum.                    |
+|**IdProvider**                | Generates a unique ID (Int, Xid, Guid, Base58 formats available). All IDs are returned as a string.  |
 
 ## Using an ad hoc generator
 This package includes `CustomGenerator` which can be used as an ad hoc implementation. The generic parameter designatest he return type of the generator and the argument is a delegate that returns that type.
