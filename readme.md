@@ -1,4 +1,4 @@
-﻿[![CircleCI](https://circleci.com/gh/jstafford5380/Provausio.Testing.Generators.svg?style=svg)](https://circleci.com/gh/jstafford5380/Provausio.Testing.Generators) [![NuGet](https://img.shields.io/badge/NuGet-Provausio.Practices-green.svg)](https://www.nuget.org/packages/Provausio.Testing.Generators/)
+﻿[![CircleCI](https://circleci.com/gh/jstafford5380/Provausio.Testing.Generators.svg?style=svg)](https://circleci.com/gh/jstafford5380/Provausio.Testing.Generators) [![NuGet](https://img.shields.io/badge/NuGet-Provausio.Testing.Generators-green.svg)](https://www.nuget.org/packages/Provausio.Testing.Generators/)
  
  # Getting started
 
