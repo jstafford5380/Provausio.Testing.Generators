@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Provausio.Testing.Generators.Generators;
 using Provausio.Testing.Generators.Generators.Dates;
 using Provausio.Testing.Generators.Generators.Numbers;
 using Provausio.Testing.Generators.Generators.Strings;
+using Provausio.Testing.Generators.Shared.Ext;
 
 namespace Provausio.Testing.Generators
 {
@@ -59,6 +61,9 @@ namespace Provausio.Testing.Generators
         /// <exception cref="InvalidOperationException">There is no registered type for {type}</exception>
         public static IGenerateData Is(Type type, bool throwIfNotFound = false)
         {
+            if (type.IsEnum)
+                return new CustomGenerator<Enum>(type.GetRandomEnumValue);
+
             if (ProviderFactory.ContainsKey(type))
                 return ProviderFactory[type]();
 

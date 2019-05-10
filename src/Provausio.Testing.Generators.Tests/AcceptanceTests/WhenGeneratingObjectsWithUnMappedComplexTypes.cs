@@ -22,6 +22,7 @@ namespace Provausio.Testing.Generators.Tests.AcceptanceTests
                 Assert.NotNull(properties.Prop2);
                 Assert.NotNull(properties.Prop2.Foo);
                 Assert.False(properties.Prop2.Bar == default);
+                Assert.Equal(2, properties.Prop3.Count);
             });
         }
     }
@@ -33,6 +34,15 @@ namespace Provausio.Testing.Generators.Tests.AcceptanceTests
         public ComplexProperty Prop2 { get; set; }
 
         public List<ComplexProperty> Prop3 { get; set; }
+
+        public TestEnum Prop4 { get; set; }
+    }
+
+    public enum TestEnum
+    {
+        One,
+        Two,
+        Three
     }
 
     public class ComplexProperty

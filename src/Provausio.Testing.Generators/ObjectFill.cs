@@ -115,9 +115,7 @@ namespace Provausio.Testing.Generators
                     if (typeof(IList).IsAssignableFrom(property.PropertyType))
                     {
                         var listTypeArg = property.PropertyType.GenericTypeArguments[0];
-                        var listType = typeof(List<>);
-                        var constructedType = listType.MakeGenericType(listTypeArg);
-                        var list = (IList) Activator.CreateInstance(constructedType);
+                        var list = CreateList(listTypeArg);
 
                         var i1 = Activator.CreateInstance(listTypeArg);
                         FillAllProperties(i1);
@@ -141,6 +139,13 @@ namespace Provausio.Testing.Generators
                     SetValue(instance, It.Is(property.PropertyType), property);
                 }
             }
+        }
+
+        private static IList CreateList(Type propertyType)
+        {
+            var listType = typeof(List<>);
+            var constructedType = listType.MakeGenericType(propertyType);
+            return  (IList)Activator.CreateInstance(constructedType);
         }
 
         private void FillProperties(T instance)
