@@ -1,5 +1,6 @@
 ﻿using Provausio.Testing.Generators.Generators;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -108,15 +109,36 @@ namespace Provausio.Testing.Generators
         {
             foreach (var property in instance.GetType().GetProperties())
             {
-                if (property.PropertyType.IsSimpleType())
+                if (!property.PropertyType.IsSimpleType())
                 {
-                    SetValue(instance, It.Is(property.PropertyType), property);
+                    // handle collections
+                    if (typeof(IList).IsAssignableFrom(property.PropertyType))
+                    {
+                        var listTypeArg = property.PropertyType.GenericTypeArguments[0];
+                        var listType = typeof(List<>);
+                        var constructedType = listType.MakeGenericType(listTypeArg);
+                        var list = (IList) Activator.CreateInstance(constructedType);
+
+                        var i1 = Activator.CreateInstance(listTypeArg);
+                        FillAllProperties(i1);
+                        list.Add(i1);
+
+                        var i2 = Activator.CreateInstance(listTypeArg);
+                        FillAllProperties(i2);
+                        list.Add(i2);
+
+                        SetValue(instance, list, property);
+                    }
+                    else
+                    {
+                        var propertyInstance = Activator.CreateInstance(property.PropertyType);
+                        FillAllProperties(propertyInstance);
+                        SetValue(instance, propertyInstance, property);
+                    }
                 }
                 else
                 {
-                    var propertyInstance = Activator.CreateInstance(property.PropertyType);
-                    FillAllProperties(propertyInstance);
-                    SetValue(instance, propertyInstance, property);
+                    SetValue(instance, It.Is(property.PropertyType), property);
                 }
             }
         }

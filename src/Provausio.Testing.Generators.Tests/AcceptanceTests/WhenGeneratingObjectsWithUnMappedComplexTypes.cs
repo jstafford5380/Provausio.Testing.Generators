@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Provausio.Testing.Generators.Tests.AcceptanceTests
@@ -30,6 +31,8 @@ namespace Provausio.Testing.Generators.Tests.AcceptanceTests
         public string Prop1 { get; set; }
 
         public ComplexProperty Prop2 { get; set; }
+
+        public List<ComplexProperty> Prop3 { get; set; }
     }
 
     public class ComplexProperty
