@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Provausio.Testing.Generators.Shared.Ext;
 
 namespace Provausio.Testing.Generators
 {
@@ -82,9 +83,16 @@ namespace Provausio.Testing.Generators
         /// <returns></returns>
         public IEnumerable<T> Generate(int count)
         {
+            // to achieve the effect of filling all properties but also honoring those
+            // that were explicitly mapped, fill everything first, then run the normal
+            // selector routine
+
             for (var i = 0; i < count; i++)
             {
                 var instance = new T();
+                if (_fillUnmappedProperties)
+                    FillAllProperties(instance);
+                
                 FillProperties(instance);
                 yield return instance;
             }
@@ -96,17 +104,25 @@ namespace Provausio.Testing.Generators
             return selectors.Contains(selector, StringComparer.OrdinalIgnoreCase);
         }
 
-        private void FillObject(T instance)
+        private static void FillAllProperties(object instance)
         {
-            var properties = instance
-                .GetType()
-                .GetProperties();
+            foreach (var property in instance.GetType().GetProperties())
+            {
+                if (property.PropertyType.IsSimpleType())
+                {
+                    SetValue(instance, It.Is(property.PropertyType), property);
+                }
+                else
+                {
+                    var propertyInstance = Activator.CreateInstance(property.PropertyType);
+                    FillAllProperties(propertyInstance);
+                    SetValue(instance, propertyInstance, property);
+                }
+            }
         }
 
         private void FillProperties(T instance)
         {
-            var complexObjects = new List<PropertyInfo>();
-
             foreach (var propertySelector in _selectors)
             {
                 var generator = propertySelector.Value.Generator;
@@ -119,7 +135,7 @@ namespace Provausio.Testing.Generators
                     case MemberExpression memberExpression:
                     {
                         var property = memberExpression.Member as PropertyInfo;
-                        if (property != null && !complexObjects.Contains(property))
+                        if (property != null)
                             SetValue(instance, generator, property);
 
                         break;
@@ -143,11 +159,13 @@ namespace Provausio.Testing.Generators
             // map complex objects
         }
 
-        private static void SetValue(T instance, IGenerateData generator, PropertyInfo property)
+        private static void SetValue(object instance, IGenerateData generator, PropertyInfo property)
         {
             var value = generator.Generate();
-            property.SetValue(instance, value);
+            SetValue(instance, value, property);
         }
+
+        private static void SetValue(object instance, object value, PropertyInfo property) => property.SetValue(instance, value);
 
         private static void RunCallback(
             T instance, IGenerateData generator, 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Linq;
 using Xunit;
 
 namespace Provausio.Testing.Generators.Tests.AcceptanceTests
@@ -11,13 +9,19 @@ namespace Provausio.Testing.Generators.Tests.AcceptanceTests
         public void Test()
         {
             // arrange
-            var filler = new ObjectFill<ObjectWithComplexProperties>();
+            var filler = new ObjectFill<ObjectWithComplexProperties>().FillUnmappedProperties();
 
             // act
-            var results = filler.Generate(2);
+            var results = filler.Generate(2).ToList();
 
             // assert
-
+            Assert.All(results, properties =>
+            {
+                Assert.NotNull(properties.Prop1);
+                Assert.NotNull(properties.Prop2);
+                Assert.NotNull(properties.Prop2.Foo);
+                Assert.False(properties.Prop2.Bar == default);
+            });
         }
     }
 

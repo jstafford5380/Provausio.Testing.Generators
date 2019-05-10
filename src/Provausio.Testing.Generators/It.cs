@@ -24,7 +24,8 @@ namespace Provausio.Testing.Generators
                 [typeof(DateTime)]       = () => new DateTimeProvider(),
                 [typeof(DateTimeOffset)] = () => new DateTimeProvider(),
                 [typeof(decimal)]        = () => new CustomGenerator<decimal>(() => new RationalNumberGenerator().Generate<decimal>(int.MinValue, int.MaxValue, RationalType.Decimal)),
-                [typeof(double)]         = () => new CustomGenerator<double>(() => new RationalNumberGenerator().Generate<double>(int.MinValue, int.MaxValue, RationalType.Double))
+                [typeof(double)]         = () => new CustomGenerator<double>(() => new RationalNumberGenerator().Generate<double>(int.MinValue, int.MaxValue, RationalType.Double)),
+                [typeof(Guid)]           = () => new CustomGenerator<Guid>(Guid.NewGuid)
             };
         }
 
